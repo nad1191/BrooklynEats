@@ -11,7 +11,8 @@ Fork & Clone this repo.
 - [ ] In this space below, list **THREE** ideas for your Project 2. For each idea, include [user stories](https://www.atlassian.com/agile/project-management/user-stories) for each idea and a link to the API(s) you want to use for it.
 
 --------------------------------------------------------
-BrooklynEats - My app will connect all the Brooklyn foodies to find, chat, and rate/review restaurants in Brooklyn. The user will be able to create their own profile, search for nearby restaurants in the Brooklyn area, leave ratings and reviews, and share them via email/chat through the website with other foodies.                                                                                                                                                  ---------------------------------------------------------
+BrooklynEats - My app will connect all the Brooklyn foodies to find, chat, and rate/review restaurants in Brooklyn. The user will be able to create their own profile, search for nearby restaurants in the Brooklyn area, leave ratings and reviews, and share them via email/chat through the website with other foodies.                                                                                                                                                  
+---------------------------------------------------------
 
 - [ ] Make a PR when you're done!
 
