@@ -4,9 +4,10 @@ const layouts = require('express-ejs-layouts');
 const app = express();
 const session = require('express-session');
 const flash = require('connect-flash');
+const axios= require('axios');
 
-const SECRET_SESSION = process.env.SECRET_SESSION;
-console.log('yoooooooooooo',SECRET_SESSION);
+const OMBDKEY = process.env.OMBDKEY;
+console.log('yoooooooooooo', OMBDKEY);
 
 app.set('view engine', 'ejs');
 
@@ -16,7 +17,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(layouts);
 
 app.use(session({
-  secret: SECRET_SESSION,
+  secret: OMBDKEY,
   resave: false,
   saveUninitialized: true
 

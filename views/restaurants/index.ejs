@@ -1,0 +1,15 @@
+<h1>Restaurants</h1>
+
+<% restaurants.forEach(function(restaurant) { %>
+  <div class="well">
+    <h2>
+      <a href="/restaraunts/<%= restaurant.id %>">
+        <%= restaurant %>
+      </a>
+    </h2>
+  </div>
+<% }) %>
+
+<hr />
+
+<a href="/">&larr; Back Home</a>

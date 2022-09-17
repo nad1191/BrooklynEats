@@ -6,10 +6,39 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
+const axios= require('axios');
+const yelp = require('yelp-fusion')
+const OMBDKEY = process.env.OMBDKEY;
+const APIKEY = process.env.APIKEY
 
-const SECRET_SESSION = process.env.SECRET_SESSION;
-console.log('yoooooooooooo',SECRET_SESSION);
 
+
+// console.log('yoooooooooooo',OMBDKEY);
+
+
+// const config = {
+//   method: 'POST',
+//   url: 'localhost:3000/OMBDKEY',
+//   headers: {
+//     'content-type': 'application/json',
+//     'Authorization': `Bearer ${OMBDKEY}`
+//    }
+// };
+// axios.request(config).then(response => {
+//   console.log(config)
+// }).catch(function (error) {
+//   console.log(error);
+// });
+
+// axios(config)
+// .then(function (response) {
+//   console.log(JSON.stringify(response.data));
+// })
+// .catch(function (error) {
+//   console.log(error);
+// });
+
+// rs
 app.set('view engine', 'ejs');
 
 app.use(require('morgan')('dev'));
@@ -18,7 +47,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(layouts);
 
 app.use(session({
-  secret: SECRET_SESSION,
+  secret: OMBDKEY,
   resave: false,
   saveUninitialized: true
 
@@ -40,16 +69,17 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-
-
-//access to all of our auth routes /auth/login, GET /auth/signup POST routes
-app.use('/auth', require('./controllers/auth'));
-
-// Add this above /auth controllers
 app.get('/profile', isLoggedIn, (req, res) => {
   const { id, name, email } = req.user.get(); 
   res.render('profile', { id, name, email });
 });
+
+//access to all of our auth routes /auth/login, GET /auth/signup POST routes
+app.use('/auth', require('./controllers/auth'));
+app.use('/restaurants', require('./controllers/restaurants'));
+
+// Add this above /auth controllers
+
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
