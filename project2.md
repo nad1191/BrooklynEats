@@ -32,6 +32,8 @@ In the space below:
 ----------------------------------------------------------
 ### User Stories
 
+My user will connect with other users to find, chat, and post ratings/reviews of restaurants in Brooklyn. My user will be able to create their own profile and also share restaurants via email/chat through the website. My user will be able to delete and edit reviews as well.
+
 ----------------------------------------------------------
 ### Wireframes
 ![image](https://user-images.githubusercontent.com/104798500/190057672-ed938578-19e2-4b21-a82f-58408a54ba10.png)
