@@ -41,23 +41,23 @@ router.get('/restaurants', async (req, res, next) => {
   
   router.get('/show', (req, res) => {
     db.restaurant.findAll()
-    .then((authors) => {
-      res.render('articles/new', { authors: authors })
+    .then((restaurants) => {
+      res.render('restaurants/show')
     })
     .catch((error) => {
       res.status(400).render('main/404')
     })
   })
   
-  // GET /articles/:id - display a specific post and its author
+  
   router.get('/:id', (req, res) => {
-    db.article.findOne({
+    db.restaurant.findOne({
       where: { id: req.params.id },
-      include: [db.author, db.comment]
+      include: [db.comment]
     })
-    .then((article) => {
-      if (!article) throw Error()
-      console.log(article.author)
+    .then((restaurant) => {
+      if (!restaurant) throw Error()
+      console.log(restaurant)
       res.render('articles/show', { article: article })
     })
     .catch((error) => {
