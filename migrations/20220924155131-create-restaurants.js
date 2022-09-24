@@ -8,17 +8,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      restName: {
+      userId: {
+        type: Sequelize.INTEGER
+      },
+      restaurantId: {
+        type: Sequelize.INTEGER
+      },
+      name: {
         type: Sequelize.STRING
       },
-      address: {
+      address1: {
         type: Sequelize.INTEGER
       },
-      review: {
-        type: Sequelize.INTEGER
-      },
-      comment: {
-        type: Sequelize.TEXT
+      image_url: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

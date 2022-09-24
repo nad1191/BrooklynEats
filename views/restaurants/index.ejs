@@ -1,15 +1,18 @@
-<h1>Restaurants</h1>
+<div class="container">
+  <h1 class="text-center">The Original 151 Pokemon</h1>
+  <p class="text-center">
+    <a href="/pokemon">Favorites</a>
+  </p>
 
-<% restaurants.forEach(function(restaurant) { %>
-  <div class="well">
-    <h2>
-      <a href="/restaraunts/<%= restaurant.id %>">
-        <%= restaurant %>
-      </a>
-    </h2>
-  </div>
-<% }) %>
-
-<hr />
-
-<a href="/">&larr; Back Home</a>
+  <% pokemons.forEach((pokemon) => { %>
+    <div class="well">
+      <h2><%= pokemon.name %></h2>
+      <form method="POST" action="./pokemon/favorite">
+        <input hidden type="text" name="name" value="<%= pokemon.name %>">
+        <input hidden type="text" name="id" value="<%= pokemon.id %>">
+        <input hidden type="text" name="userId" value="<%= user.id %>">
+        <button class="btn btn-primary" type="submit">Add to Favorite Pokemon</button>
+      </form>
+    </div>
+  <% }); %>
+</div>

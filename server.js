@@ -8,37 +8,16 @@ const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const axios= require('axios');
 const yelp = require('yelp-fusion')
+const db = require('./models')
+
 const OMBDKEY = process.env.OMBDKEY;
-const APIKEY = process.env.APIKEY
+const APIKEY = process.env.APIKEY;
 
 
 
 // console.log('yoooooooooooo',OMBDKEY);
 
 
-// const config = {
-//   method: 'POST',
-//   url: 'localhost:3000/OMBDKEY',
-//   headers: {
-//     'content-type': 'application/json',
-//     'Authorization': `Bearer ${OMBDKEY}`
-//    }
-// };
-// axios.request(config).then(response => {
-//   console.log(config)
-// }).catch(function (error) {
-//   console.log(error);
-// });
-
-// axios(config)
-// .then(function (response) {
-//   console.log(JSON.stringify(response.data));
-// })
-// .catch(function (error) {
-//   console.log(error);
-// });
-
-// rs
 app.set('view engine', 'ejs');
 
 app.use(require('morgan')('dev'));
