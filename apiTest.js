@@ -3,17 +3,20 @@ require('dotenv').config();
 const axios = require('axios');
 const yelp = require('yelp-fusion');
 const APIKEY = process.env.APIKEY;
-const client = yelp.client(APIKEY);
+const HOST = process.env.HOST;
 
-const searchRequest = {
-  term:'restaurants',
-  location: 'brooklyn, ny'
-};
-client.search(searchRequest).then(response => {
-  const firstResult = response.jsonBody.businesses;
-  const prettyJson = JSON.stringify(firstResult, null, 4);
-  console.log(prettyJson);
-}).catch(e => {
-  console.log(e);
-});
+  const options = {
+    method: 'GET',
+    url: 'https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/state/NY/city/Brooklyn/0',
+    headers: {
+      'X-RapidAPI-Key': process.env.APIKEY,
+      'X-RapidAPI-Host': process.env.HOST
+    }
+  };
+  
+  axios.request(options).then(function (response) {
+    console.log(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
 

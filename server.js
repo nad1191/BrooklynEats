@@ -1,4 +1,4 @@
-require('dotenv').config();
+const dotenv = require('dotenv').config()
 const express = require('express');
 const layouts = require('express-ejs-layouts');
 const app = express();
@@ -9,24 +9,22 @@ const isLoggedIn = require('./middleware/isLoggedIn');
 const axios= require('axios');
 const yelp = require('yelp-fusion')
 const db = require('./models')
+const methodOverride = require('method-override')
 
-const OMBDKEY = process.env.OMBDKEY;
-const APIKEY = process.env.APIKEY;
-
-
-
-// console.log('yoooooooooooo',OMBDKEY);
+const SECRET_SESSION = process.env.SECRET_SESSION;
+console.log('yoooooooooooo',SECRET_SESSION);
 
 
 app.set('view engine', 'ejs');
 
 app.use(require('morgan')('dev'));
+app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
 
 app.use(session({
-  secret: OMBDKEY,
+  secret: SECRET_SESSION,
   resave: false,
   saveUninitialized: true
 
@@ -55,7 +53,9 @@ app.get('/profile', isLoggedIn, (req, res) => {
 
 //access to all of our auth routes /auth/login, GET /auth/signup POST routes
 app.use('/auth', require('./controllers/auth'));
-app.use('/restaurants', require('./controllers/restaurants'));
+app.use('/restaurants', isLoggedIn, require('./controllers/restaurants'));
+app.use('/email', isLoggedIn, require('./controllers/email'));
+app.use('/comments', isLoggedIn, require('./controllers/comments'));
 
 // Add this above /auth controllers
 

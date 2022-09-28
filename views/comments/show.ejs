@@ -1,0 +1,11 @@
+<h1><%= comment.title %> <small>by <%= comment.restaurant.getFullName() %></small></h1>
+
+<p>
+  <strong><%= moment(comment.createdAt).calendar() %></strong>
+</p>
+
+<p><%= comment.content %></p>
+
+<hr />
+
+<a href="/">&larr; Back Home</a>

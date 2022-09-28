@@ -1,0 +1,20 @@
+<h1>Results</h1>
+<form method="get" action="/restaurants">
+    <button type="submit">Back to Restaurants</button>
+</form>
+  <% restaurants.forEach((restaurant) => { %>
+    <h2><%= restaurant.result.name %> </h2>
+    <h3><%= restaurant.result.address %> </h3>
+ 
+    
+    
+    <form method="POST" action="/restaurants/email">
+      <h2><%= restaurant.result.restaurantName %> </h2>
+    <h3><%= restaurant.result.address %> </h3>
+      <button type="submit">Share</button>
+    </form>
+    <br>
+    <br>
+ <% }) %>
+
+
