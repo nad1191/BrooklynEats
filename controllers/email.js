@@ -29,24 +29,9 @@ router.post('/', (req, res) => {
     })
   })
   
-  // GET /articles/:id - display a specific post and its author
-  router.get('/:id', (req, res) => {
-    db.article.findOne({
-      where: { id: req.params.id },
-      include: [db.author, db.comment]
-    })
-    .then((article) => {
-      if (!article) throw Error()
-      console.log(article.author)
-      res.render('articles/show', { article: article })
-    })
-    .catch((error) => {
-      console.log(error)
-      res.status(400).render('main/404')
-    })
-  })
   
-  router.post('/:id/comment', (req, res) => {
+  
+  router.post('/:id/email', (req, res) => {
     const createdDate = new Date().toISOString();
     db.article.findOne({
       where: { id: req.params.id },
