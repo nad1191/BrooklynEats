@@ -7,7 +7,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     static associate(models) {
-      models.user.hasMany(models.comments);
+      models.user.hasMany(models.comment);
       models.user.hasMany(models.email)
     }
   }

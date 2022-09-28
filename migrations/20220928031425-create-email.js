@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('emailStorages', {
+    await queryInterface.createTable('emails', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,11 +11,14 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
+      restaurantId: {
+        type: Sequelize.INTEGER
+      },
       emailId: {
         type: Sequelize.INTEGER
       },
-      restaurantId: {
-        type: Sequelize.INTEGER
+      message: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
@@ -28,6 +31,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('emailStorages');
+    await queryInterface.dropTable('emails');
   }
 };

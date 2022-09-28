@@ -3,21 +3,20 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class comments extends Model {
-    
+  class comment extends Model {
     static associate(models) {
-      models.comments.belongsTo(models.restaurants)
-      models.comments.belongsTo(models.user)
+      models.comment.belongsTo(models.restaurant)
+      models.comment.belongsTo(models.user)
     }
   }
-  comments.init({
+  comment.init({
     userId: DataTypes.INTEGER,
     rating: DataTypes.INTEGER,
     content: DataTypes.TEXT,
     restaurantId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'comments',
+    modelName: 'comment',
   });
-  return comments;
+  return comment;
 };

@@ -11,7 +11,7 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 
 
 router.get('/', async (req, res) => {
-    let restaurant = await db.restaurants.findAll();
+    let restaurant = await db.restaurant.findAll();
     restaurant = restaurant.map(r => r.toJSON());
     console.log(restaurant);
     res.render('restaurants/index', {restaurant: restaurant});
@@ -21,21 +21,21 @@ router.get('/', async (req, res) => {
 
 router.get('/:id',async (req,res) => {
   let restaurant = await db.restaurant.findone({
-    where: {id: req.restaurantid},
-    include: [db.comments]
+    where: {id: req.params.id},
+    include: [db.comment]
   });
   restaurant = restaurant.toJSON();
   console.log('======this is the show route=======');
   console.log(restaurant);
-  res.render('restaurants/results', {restaurants:restaurant});
+  res.render('restaurants/results', {restaurant:restaurant});
 })
 
 
 
-router.post('/results', async (req,res) => {
+router.post('/results', isLoggedIn, async (req,res) => {
   const options = {
     method: 'GET',
-    url: 'https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/state/NY/city/Brooklyn/10',
+    url: 'https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/state/NY/city/Brooklyn',
     params: {q:req.body.search},
     headers: {
       'X-RapidAPI-Key': process.env.APIKEY,
@@ -44,8 +44,8 @@ router.post('/results', async (req,res) => {
   };
   
   const response = await axios.request(options);
-    console.log(response.data.response.restaurants);
-    res.render('restaurants/results', {restaurants:response.data.response.restaurants })
+    console.log(response.data.response.restaurant);
+    res.render('restaurants/results', {restaurant:response.data.response.restaurant })
 })
 
 

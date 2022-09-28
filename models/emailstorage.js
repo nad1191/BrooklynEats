@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   emailStorage.init({
     userId: DataTypes.INTEGER,
-    emailId: DataTypes.INTEGER,
-    restaurantId: DataTypes.INTEGER
+    restaurantId: DataTypes.INTEGER,
+    emailId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'emailStorage',

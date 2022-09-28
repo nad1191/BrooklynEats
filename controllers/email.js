@@ -3,8 +3,9 @@ const router = express.Router();
 const passport = require('../config/ppConfig');
 const db = require('../models');
 const axios = require('axios');
+const isLoggedIn = require('../middleware/isLoggedIn');
 
-router.post('/', (req, res) => {
+router.post('/', isLoggedIn, (req, res) => {
     db.email.create({
         userId: DataTypes.INTEGER,
         restaurantId: DataTypes.INTEGER,
@@ -18,7 +19,7 @@ router.post('/', (req, res) => {
     })
   })
   
-  router.get('/new', (req, res) => {
+  router.get('/new', isLoggedIn, (req, res) => {
     db.author.findAll()
     .then((user) => {
       res.render('email/new', { restaurants: restaurants })
@@ -30,7 +31,7 @@ router.post('/', (req, res) => {
   
   
   
-  router.post('/:id/email', (req, res) => {
+  router.post('/:id/email',isLoggedIn, (req, res) => {
     const createdDate = new Date().toISOString();
     db.email.findOne({
       where: { id: req.params.id },
