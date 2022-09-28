@@ -8,8 +8,7 @@ router.post('/', (req, res) => {
     db.email.create({
         userId: DataTypes.INTEGER,
         restaurantId: DataTypes.INTEGER,
-        message: DataTypes.TEXT,
-        parentMessageId: DataTypes.INTEGER
+        message: DataTypes.TEXT, 
     })
     .then((post) => {
       res.redirect('/')
@@ -22,7 +21,7 @@ router.post('/', (req, res) => {
   router.get('/new', (req, res) => {
     db.author.findAll()
     .then((user) => {
-      res.render('articles/new', { authors: authors })
+      res.render('email/new', { restaurants: restaurants })
     })
     .catch((error) => {
       res.status(400).render('main/404')
@@ -33,20 +32,20 @@ router.post('/', (req, res) => {
   
   router.post('/:id/email', (req, res) => {
     const createdDate = new Date().toISOString();
-    db.article.findOne({
+    db.email.findOne({
       where: { id: req.params.id },
-      include: [db.author, db.comment]
+      include: [db.email, db.user]
     })
-    .then((article) => {
-      if (!article) throw Error()
+    .then((email) => {
+      if (!email) throw Error()
       db.comment.create({
-        name: req.body.name,
-        content: req.body.content,
-        articleId: parseInt(req.params.id),
+        message: req.body.content,
+        userId: parseInt(req.params.id),
+        restaurantId: parseInt(req.params.id),
         createdAt: createdDate,
         updatedAt: createdDate
       }).then(comment => {
-        res.redirect(`/articles/${req.params.id}`);
+        res.redirect(`/email/${req.params.id}`);
       })
     })
     .catch((error) => {
@@ -56,5 +55,5 @@ router.post('/', (req, res) => {
   })
     
   
-  module.exports = router
+  module.exports = router;
   
