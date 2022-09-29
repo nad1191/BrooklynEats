@@ -5,7 +5,8 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class restaurant extends Model {
     static associate(models) {
-      models.restaurant.hasMany(models.comment);
+      models.restaurant.hasMany(models.comment)
+      models.restaurant.belongsTo(models.user)
     }
   }
   restaurant.init({

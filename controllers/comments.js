@@ -46,13 +46,6 @@ router.get('/:id', (req, res) => {
 })
 
 
-// async function test() {
-//   const restaurant = await db.restaurant.findOne({
-//     where: { id: integer },
-//     include: [db.comments]
-//   });
-//   console.log(restaurant.comments)
-// }
-// test()
+
 
 module.exports = router;

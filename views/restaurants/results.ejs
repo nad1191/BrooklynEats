@@ -1,20 +1,20 @@
 <h1>Results</h1>
-<form method="get" action="/restaurants">
-    <button type="submit">Back to Restaurants</button>
-</form>
-  <% restaurants.forEach((restaurant) => { %>
-    <h2><%= restaurant.result.name %> </h2>
-    <h3><%= restaurant.result.address %> </h3>
- 
-    
-    
-    <form method="POST" action="/restaurants/email">
-      <h2><%= restaurant.result.restaurantName %> </h2>
-    <h3><%= restaurant.result.address %> </h3>
+<% for( let i = 0; i < restaurants.length; i++ ) { %>
+  <% let rest = restaurants[i] %>
+    <h2><%= restaurants.restaurantName%> </h2>
+    <h3><%= restaurants.address %> </h3>
+  
+    <form method="POST" action="/songs/new">
+      <input type="text" value="<%= restaurants.restaurantName %>" name="=name" hidden>
+      <input type="text" value="<%= restaurants.address %>" name="address" hidden>
+      <input type="text" value="<%= restaurants.phone %>" name="phone" hidden>
+      <input type="text" value="<%= restaurants.cuisineType %>" name="food" hidden>
+      <input type="text" value="<%= user.id %>" name="userId" hidden>
       <button type="submit">Share</button>
     </form>
     <br>
     <br>
- <% }) %>
+    <a href="/restaurants"> Back Home</a>
+ <% } %>
 
 

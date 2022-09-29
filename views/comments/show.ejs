@@ -1,4 +1,4 @@
-<h1><%= comment.title %> <small>by <%= comment.restaurant.getFullName() %></small></h1>
+<h1><small>by <%= comment.restaurant.restaurantName %></small></h1>
 
 <p>
   <strong><%= moment(comment.createdAt).calendar() %></strong>
