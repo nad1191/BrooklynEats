@@ -3,21 +3,10 @@ const router = express.Router();
 const passport = require('../config/ppConfig');
 const db = require('../models');
 const axios = require('axios');
-
-router.post('/', (req, res) => {
-  db.comments.create({
-    comment: DataTypes.TEXT,
-    review: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
-    restaurantId: DataTypes.INTEGER
-  })
-  .then((post) => {
-    res.redirect('/')
-  })
-  .catch((error) => {
-    res.status(400).render('main/404')
-  })
-})
+require('dotenv').config();
+const APIKEY = process.env.APIKEY;
+const HOST = process.env.HOST;
+const isLoggedIn = require('../middleware/isLoggedIn');
 
 router.get('/new', (req, res) => {
   db.restaurant.findAll()
@@ -45,6 +34,30 @@ router.get('/:id', (req, res) => {
   })
 })
 
+router.post('/', (req, res) => {
+  db.comments.create({
+    comment: DataTypes.TEXT,
+    review: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
+    restaurantId: DataTypes.INTEGER
+  })
+  .then((post) => {
+    res.redirect('/')
+  })
+  .catch((error) => {
+    res.status(400).render('main/404')
+  })
+})
+
+router.delete('/:id', async (req, res) => {
+
+  let commentDeleted = await db.comment.destroy({
+      where: { id: req.params.id }
+  });
+  console.log('==== this is the delete route ======');
+  console.log('Amount of songs deleted', commentDeleted);
+  res.redirect('/restaurants');
+});
 
 
 

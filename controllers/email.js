@@ -5,6 +5,16 @@ const db = require('../models');
 const axios = require('axios');
 const isLoggedIn = require('../middleware/isLoggedIn');
 
+router.get('/new', isLoggedIn, (req, res) => {
+  db.author.findAll()
+  .then((user) => {
+    res.render('email/new', { restaurants: restaurants })
+  })
+  .catch((error) => {
+    res.status(400).render('main/404')
+  })
+})
+
 router.post('/', isLoggedIn, (req, res) => {
     db.email.create({
         userId: DataTypes.INTEGER,
@@ -18,18 +28,6 @@ router.post('/', isLoggedIn, (req, res) => {
       res.status(400).render('main/404')
     })
   })
-  
-  router.get('/new', isLoggedIn, (req, res) => {
-    db.author.findAll()
-    .then((user) => {
-      res.render('email/new', { restaurants: restaurants })
-    })
-    .catch((error) => {
-      res.status(400).render('main/404')
-    })
-  })
-  
-  
   
   router.post('/:id/email',isLoggedIn, (req, res) => {
     const createdDate = new Date().toISOString();
@@ -51,9 +49,10 @@ router.post('/', isLoggedIn, (req, res) => {
     })
     .catch((error) => {
       console.log(error)
-      res.status(400).render('main/404')
     })
   })
+
+  
     
   
   module.exports = router;

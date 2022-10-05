@@ -8,50 +8,19 @@ const APIKEY = process.env.APIKEY;
 const HOST = process.env.HOST;
 const isLoggedIn = require('../middleware/isLoggedIn');
 
-
-
-
 router.get('/', async (req, res) => {
-  let restaurants = await db.restaurant.findAll();
-  restaurants = restaurants.map(r => r.toJSON()); 
-  console.log(restaurants); 
-  res.render('restaurants/index', { restaurants: restaurants });
+  let rest = await db.restaurant.findAll();
+  rest = rest.map(r => r.toJSON()); 
+  console.log(rest);
+  res.render('restaurants/index', { rest: rest });
 })
 
-router.get('/results', (req, res) => {
-  res.render('restaurants/results');
+router.get('/search', (req, res) => {
+  res.render('songs/search');
 });
 
-router.get('/:id', async (req, res) => {
-  let rest = await db.rest.findOne({
-      where: { id: req.params.id }
-  });
-  rest = rest.toJSON();
-  console.log('===== this is the show route =====');
-  console.log(song);
-  res.render('restaurants/show', { rest: rest });
-})
-
-router.post('/new', async (req, res) => {
-  console.log('****** /new', req.body);
-  // create song (for db)
-  const newRest= await db.restaurant.create({
-      restaurantName: req.body.restaurantName,
-      address: parseInt(req.body.address),
-      phone: parseInt(req.body.phone),
-      cuisineType: req.body.cuisineType,
-      userId: parseInt(req.body.userId),
-      restaurantId: parseInt(req.body.restaurantId),
-      url: req.body.url
-  });
-  console.log(newRest.toJSON());
-  res.redirect('/restaurants');
-});
-
-
-router.post('/results', isLoggedIn, async (req,res) => {
-  const axios = require("axios");
-
+router.get('/results', async (req, res) => {
+  console.log('>>>>> SEARCH DATA', req.body);
 const options = {
   method: 'GET',
   url: 'https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/state/NY/city/Brooklyn',
@@ -61,24 +30,41 @@ const options = {
     'X-RapidAPI-Host': process.env.HOST
   }
 };
-
 axios.request(options).then(function (response) {
-	console.log(response.data.response.rest);
+	console.log(response.data);
 }).catch(function (error) {
 	console.error(error);
 });
 
+});
+
+router.get('/:id', async (req, res) => {
+  let rests = await db.rests.findOne({
+      where: { id: req.params.id }
+  });
+  rests = rests.toJSON();
+  console.log('===== this is the show route =====');
+  console.log(rests);
+  res.render('restaurants/show', { rests: rests });
 })
 
+router.post('/new', async (req, res) => {
+  console.log('****** /new', req.body);
+  const newRest = await db.rests.create({
+    userId: parseInt(req.body.userId),
+    restaurantId: parseInt(req.body.restaurantId),
+    restaurantName: req.body.restaurantName,
+    address: parseInt(req.body.address),
+    phone: parseInt(req.body.phone),
+    cuisineType: req.body.cuisineType
+  });
+
+  console.log(newSong.toJSON());
+  // res.redirect to all favorite songs
+  res.redirect('/restaurants');
+});
 
 
 
 
-
-
-
-
-  
-
-  
 module.exports = router;

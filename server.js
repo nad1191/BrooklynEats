@@ -50,14 +50,47 @@ app.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile', { id, name, email });
 });
 
-//access to all of our auth routes /auth/login, GET /auth/signup POST routes
+app.get('/profile/edit', isLoggedIn, (req, res) => {
+  res.render('edit');
+});
+
+app.put('/profile/:id', isLoggedIn, async (req, res) => {
+  try {
+      const foundUser = await db.user.findOne({ where: { email: req.body.email }});
+      if (foundUser.email && foundUser.id !== req.user.id) {
+        req.flash('error', 'Email already exists. Please try again.');
+        res.redirect('/profile');
+      } else {
+        const usersUpdated = await db.user.update({
+          email: req.body.email,
+          name: req.body.name
+        }, {
+          where: {
+            id: req.params.id
+          }
+        });
+        console.log('********** PUT ROUTE *************');
+        console.log('Users updated', usersUpdated);
+        console.log('**************************************************');
+  
+        res.redirect('/profile'); 
+      }
+  } catch (error) {
+    console.log('*********************ERROR***********************');
+    console.log(error);
+    console.log('**************************************************');
+    res.render('edit');
+  }
+});
+
 app.use('/auth', require('./controllers/auth'));
 app.use('/restaurants', isLoggedIn, require('./controllers/restaurants'));
 app.use('/email', isLoggedIn, require('./controllers/email'));
 app.use('/comments', isLoggedIn, require('./controllers/comments'));
 
-// Add this above /auth controllers
-
+app.get('*' ,(req,res) => {
+  res.render('404')
+})
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {

@@ -4,6 +4,20 @@ nav ul li {
   margin-right: .3em;
 }
 
+.text-center{
+  margin: 0;
+  background-color: hsl(0, 0%, 98%);
+  color: #333;
+  font: 100% / normal sans-serif;
+}
+
 h1 {
   color: chartreuse;
 }
+
+.container-fluid{
+  width: 100%;
+}
+
+
+  
